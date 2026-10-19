@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fórmula do desvio de vértice</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
+<style>
+:root{
+  --bg:#f2f5f9; --paper:#ffffff; --ink:#1b2740; --muted:#55627a; --line:#d3dbe6;
+  --accent:#0d7a6b; --accent2:#b4492f; --grid:#e3e9f1;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1624; --paper:#162033; --ink:#e6ecf7; --muted:#9aa8c2; --line:#2a3750;
+    --accent:#4fd1bd; --accent2:#f0997f; --grid:#1b273d; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1624; --paper:#162033; --ink:#e6ecf7; --muted:#9aa8c2; --line:#2a3750;
+  --accent:#4fd1bd; --accent2:#f0997f; --grid:#1b273d; color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Newsreader",Georgia,"Times New Roman",serif; font-size:19px; line-height:1.6;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+main{max-width:720px; margin:0 auto; padding:32px 20px 64px}
+h1{font-size:clamp(2.1rem,7vw,3.2rem); line-height:1.08; margin:0 0 6px; font-weight:600; letter-spacing:-0.01em}
+h2{font-size:1.45rem; margin:44px 0 8px; font-weight:600}
+p{margin:0 0 14px; max-width:62ch}
+.by{color:var(--muted); margin:0 0 22px}
+.card{background:var(--paper); border:1px solid var(--line); border-radius:6px; padding:18px 20px; margin:16px 0; overflow-x:auto}
+.formula{font-size:clamp(1.3rem,5vw,1.9rem); text-align:center; padding:26px 12px; white-space:nowrap}
+.formula small{display:block; font-size:.95rem; color:var(--muted); margin-top:10px; white-space:normal}
+.math{font-style:italic}
+.frac{display:inline-flex; flex-direction:column; text-align:center; vertical-align:middle; line-height:1.25; margin:0 2px}
+.frac>span:first-child{border-bottom:1.5px solid currentColor; padding:0 4px}
+.frac>span:last-child{padding:0 4px}
+.sqrt{display:inline-flex; align-items:center}
+.sqrt>span{border-top:1.5px solid currentColor; padding:0 3px; margin-left:1px}
+.sqrt::before{content:"√"; font-style:normal}
+.eq{display:block; text-align:center; margin:10px 0; font-size:1.2rem; white-space:nowrap}
+.note{border-left:4px solid var(--accent2); padding:4px 0 4px 16px; margin:22px 0}
+.note p{margin:0 0 8px}
+ol.steps{padding-left:22px; margin:0 0 10px}
+ol.steps li{margin-bottom:6px}
+figure{margin:20px 0}
+svg{width:100%; height:auto; display:block}
+.ax{stroke:var(--muted); stroke-width:1.3}
+.cv{stroke:var(--accent); stroke-width:3.2; fill:none}
+.dash{stroke:var(--accent2); stroke-width:2; stroke-dasharray:6 5; fill:none}
+.arr{stroke:var(--accent2); stroke-width:2.4; fill:none}
+.dot{fill:var(--accent2)}
+.rt{fill:var(--accent)}
+.lb{fill:var(--ink); font-family:"Newsreader",Georgia,serif; font-size:17px; font-style:italic}
+figcaption{color:var(--muted); font-size:.95rem; text-align:center; margin-top:4px}
+footer{margin-top:48px; color:var(--muted); font-size:.95rem; border-top:1px solid var(--line); padding-top:14px}
+</style>
+</head>
+<body>
+<main>
+<h1>Fórmula do desvio de vértice</h1>
+<p class="by">Arthur Emiliano Silva Macena, 14 anos · 19 de outubro de 2026</p>
+<p>Uma forma de resolver equações de segundo grau partindo do vértice da parábola: as raízes ficam sempre à mesma distância, para a esquerda e para a direita, do ponto central <span class="math">−b/2a</span>.</p>
+
+<div class="card formula">
+  <span class="math">x = x<sub>v</sub> ±
+  <span class="sqrt"><span><span class="frac"><span>−y<sub>v</sub></span><span>a</span></span></span></span></span>
+  <small>com <span class="math">x<sub>v</sub> = −b/2a</span> e <span class="math">y<sub>v</sub> = f(x<sub>v</sub>)</span>, o valor da equação ax² + bx + c calculado no vértice.</small>
+</div>
+
+<figure>
+<svg viewBox="0 0 600 260" role="img" aria-label="Parábola com vértice abaixo do eixo x e duas raízes à mesma distância do vértice">
+  <line class="ax" x1="40" y1="150" x2="570" y2="150"/>
+  <path class="cv" d="M120 75 Q300 345 480 75"/>
+  <line class="dash" x1="300" y1="150" x2="300" y2="210"/>
+  <line class="arr" x1="296" y1="132" x2="186" y2="132"/>
+  <line class="arr" x1="304" y1="132" x2="414" y2="132"/>
+  <circle class="dot" cx="300" cy="210" r="5"/>
+  <circle class="rt" cx="180" cy="150" r="5.5"/>
+  <circle class="rt" cx="420" cy="150" r="5.5"/>
+  <text class="lb" x="312" y="235">vértice (x<tspan font-size="13" dy="4">v</tspan><tspan dy="-4">, y</tspan><tspan font-size="13" dy="4">v</tspan><tspan dy="-4">)</tspan></text>
+  <text class="lb" x="236" y="120" text-anchor="middle">desvio</text>
+  <text class="lb" x="364" y="120" text-anchor="middle">desvio</text>
+  <text class="lb" x="180" y="176" text-anchor="middle">raiz</text>
+  <text class="lb" x="420" y="176" text-anchor="middle">raiz</text>
+</svg>
+<figcaption>O desvio é a distância do vértice até cada raiz.</figcaption>
+</figure>
+
+<div class="note">
+<p><strong>Sobre a autoria.</strong> Arthur chegou a esta fórmula sozinho, testando valores até o padrão aparecer, e deu a ela o nome de “desvio de vértice”.</p>
+<p>Matematicamente, ela é equivalente à fórmula de Bhaskara e vem da forma canônica da parábola, que já era conhecida. O que é novo aqui é o caminho: a descoberta independente e a maneira de escrever a solução a partir do vértice.</p>
+</div>
+
+<h2>Como usar</h2>
+<ol class="steps">
+  <li>Calcule <span class="math">x<sub>v</sub> = −b/2a</span>.</li>
+  <li>Calcule <span class="math">y<sub>v</sub></span>, substituindo <span class="math">x<sub>v</sub></span> na equação.</li>
+  <li>Calcule o desvio: <span class="math">√(−y<sub>v</sub>/a)</span>.</li>
+  <li>As soluções são <span class="math">x<sub>v</sub> + desvio</span> e <span class="math">x<sub>v</sub> − desvio</span>.</li>
+</ol>
+
+<h2>Exemplo com duas raízes reais</h2>
+<div class="card">
+  <p><span class="math">x² − 5x + 6 = 0</span></p>
+  <p>x<sub>v</sub> = 5/2 = 2,5<br>y<sub>v</sub> = 6,25 − 12,5 + 6 = −0,25<br>desvio = √(0,25/1) = 0,5</p>
+  <p style="margin:0"><strong>x = 2,5 ± 0,5, ou seja, x = 3 e x = 2.</strong></p>
+</div>
+
+<h2>Outro exemplo com raízes reais</h2>
+<div class="card">
+  <p><span class="math">3x² − 6x − 9 = 0</span></p>
+  <p>x<sub>v</sub> = 6/6 = 1<br>y<sub>v</sub> = 3 − 6 − 9 = −12<br>desvio = √(12/3) = √4 = 2</p>
+  <p style="margin:0"><strong>x = 1 ± 2, ou seja, x = 3 e x = −1.</strong></p>
+</div>
+
+<h2>Exemplo sem raízes reais</h2>
+<div class="card">
+  <p><span class="math">2x² − 4x + 7 = 0</span></p>
+  <p>x<sub>v</sub> = 1<br>y<sub>v</sub> = 2 − 4 + 7 = 5<br>−y<sub>v</sub>/a = −5/2, que é negativo</p>
+  <p style="margin:0"><strong>x = 1 ± i√(5/2) = 1 ± (√10/2)i.</strong></p>
+</div>
+<p>O sinal de <span class="math">−y<sub>v</sub>/a</span> diz tudo: positivo dá duas raízes reais, zero dá uma só (o próprio vértice) e negativo dá raízes complexas. Visualmente, o vértice precisa estar do lado do eixo x oposto à direção em que a parábola abre.</p>
+
+<h2>Como a fórmula apareceu</h2>
+<p>Arthur não partiu da simetria da parábola nem de completar o quadrado. Ele analisou a equação de segundo grau durante algumas horas e foi testando valores, sem seguir nenhum método conhecido, até chegar a uma expressão que dava as raízes certas.</p>
+<p>Só depois veio a explicação do motivo: a demonstração abaixo mostra que o que o teste revelou é a forma canônica da parábola. Descobrir primeiro pelo teste e provar depois é uma forma bem real de se fazer matemática.</p>
+
+<h2>Por que funciona</h2>
+<p>Toda equação de segundo grau pode ser escrita a partir do vértice:</p>
+<span class="eq math">ax² + bx + c = a(x − x<sub>v</sub>)² + y<sub>v</sub></span>
+<p>Para conferir, desenvolva o lado direito. O termo em x vale −2a·x<sub>v</sub> = b. Já a parte constante vale a·x<sub>v</sub>² + y<sub>v</sub> = b²/4a + (c − b²/4a) = c, porque y<sub>v</sub> = c − b²/4a.</p>
+<p>Igualando a zero e isolando x:</p>
+<span class="eq math">(x − x<sub>v</sub>)² = −y<sub>v</sub>/a &nbsp;⟹&nbsp; x = x<sub>v</sub> ± √(−y<sub>v</sub>/a)</span>
+
+<h2>Ligação com Bhaskara</h2>
+<p>Como <span class="math">−y<sub>v</sub>/a = (b² − 4ac)/4a²</span>, o desvio vira <span class="math">√(b² − 4ac) / 2a</span>. É exatamente a fórmula que se aprende na escola, só que lida como “centro mais ou menos desvio”.</p>
+
+<footer>Fórmula do desvio de vértice, por Arthur Emiliano Silva Macena, 14 anos. Redescoberta de forma independente em outubro de 2026.</footer>
+</main>
+</body>
+</html>
